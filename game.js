@@ -5254,6 +5254,10 @@ if (reversed == null) { reversed = false; }
 		function startGame() {
 			stage.removeChild(startGameBtn);
 			stage.removeChild(openGameBG);
+			count = 0;
+			clearInterval(timer);
+			secondsText.text = 0;
+			minutesText.text = 0;
 			instructions();
 			randomList();
 			addTime();
@@ -5262,7 +5266,6 @@ if (reversed == null) { reversed = false; }
 		
 		//restart game button
 		function restartGame() {
-			count = 0;
 			totalQuestions = 0;
 			questionNumber = 1;
 			countDown = 60;
@@ -5281,8 +5284,8 @@ if (reversed == null) { reversed = false; }
 			stage.removeChild(secondsText);
 			stage.removeChild(minutesText);
 			stage.removeChild(endGameBtn);
-			isGameChoose();
 			cleanGame();
+			isGameChoose();
 			startGame();
 		}
 		
@@ -5698,42 +5701,42 @@ lib.properties = {
 	color: "#FFFFFF",
 	opacity: 1.00,
 	manifest: [
-		{src:"images/background.png?1612743563123", id:"background"},
-		{src:"images/barakImg.png?1612743563123", id:"barakImg"},
-		{src:"images/bibiImg.png?1612743563123", id:"bibiImg"},
-		{src:"images/chooseGameBG.png?1612743563123", id:"chooseGameBG"},
-		{src:"images/circlesImg.png?1612743563123", id:"circlesImg"},
-		{src:"images/clock.png?1612743563123", id:"clock"},
-		{src:"images/dadoImg.png?1612743563123", id:"dadoImg"},
-		{src:"images/dayanImg.png?1612743563123", id:"dayanImg"},
-		{src:"images/door_close02.png?1612743563123", id:"door_close02"},
-		{src:"images/door_open02.png?1612743563123", id:"door_open02"},
-		{src:"images/endGameBG.png?1612743563123", id:"endGameBG"},
-		{src:"images/endTimeBG.png?1612743563123", id:"endTimeBG"},
-		{src:"images/falafelImg.png?1612743563123", id:"falafelImg"},
-		{src:"images/flagImg.png?1612743563123", id:"flagImg"},
-		{src:"images/funnel1_.png?1612743563123", id:"funnel1_"},
-		{src:"images/funnel_drag.png?1612743563123", id:"funnel_drag"},
-		{src:"images/guntzImg.png?1612743563123", id:"guntzImg"},
-		{src:"images/hexanImg.png?1612743563123", id:"hexanImg"},
-		{src:"images/hopeImg.png?1612743563123", id:"hopeImg"},
-		{src:"images/linesImg.png?1612743563123", id:"linesImg"},
-		{src:"images/logoTextImg.png?1612743563123", id:"logoTextImg"},
-		{src:"images/medinaImg.png?1612743563123", id:"medinaImg"},
-		{src:"images/menoraImg.png?1612743563123", id:"menoraImg"},
-		{src:"images/openGameBG.png?1612743563123", id:"openGameBG"},
-		{src:"images/pauseGameBG.png?1612743563123", id:"pauseGameBG"},
-		{src:"images/rabinImg.png?1612743563123", id:"rabinImg"},
-		{src:"images/shekelImg.png?1612743563123", id:"shekelImg"},
-		{src:"images/starsImg.png?1612743563123", id:"starsImg"},
-		{src:"images/V.png?1612743563123", id:"V"},
-		{src:"images/X.png?1612743563123", id:"X"},
-		{src:"images/ענן07.png?1612743563123", id:"ענן07"},
-		{src:"sounds/error.mp3?1612743563123", id:"error"},
-		{src:"sounds/tada.mp3?1612743563123", id:"tada"},
-		{src:"https://code.jquery.com/jquery-3.4.1.min.js?1612743563123", id:"lib/jquery-3.4.1.min.js"},
-		{src:"components/sdk/anwidget.js?1612743563123", id:"sdk/anwidget.js"},
-		{src:"components/ui/src/combobox.js?1612743563123", id:"an.ComboBox"}
+		{src:"images/background.png?1612766614144", id:"background"},
+		{src:"images/barakImg.png?1612766614144", id:"barakImg"},
+		{src:"images/bibiImg.png?1612766614144", id:"bibiImg"},
+		{src:"images/chooseGameBG.png?1612766614144", id:"chooseGameBG"},
+		{src:"images/circlesImg.png?1612766614144", id:"circlesImg"},
+		{src:"images/clock.png?1612766614144", id:"clock"},
+		{src:"images/dadoImg.png?1612766614144", id:"dadoImg"},
+		{src:"images/dayanImg.png?1612766614144", id:"dayanImg"},
+		{src:"images/door_close02.png?1612766614144", id:"door_close02"},
+		{src:"images/door_open02.png?1612766614144", id:"door_open02"},
+		{src:"images/endGameBG.png?1612766614144", id:"endGameBG"},
+		{src:"images/endTimeBG.png?1612766614144", id:"endTimeBG"},
+		{src:"images/falafelImg.png?1612766614144", id:"falafelImg"},
+		{src:"images/flagImg.png?1612766614144", id:"flagImg"},
+		{src:"images/funnel1_.png?1612766614144", id:"funnel1_"},
+		{src:"images/funnel_drag.png?1612766614144", id:"funnel_drag"},
+		{src:"images/guntzImg.png?1612766614144", id:"guntzImg"},
+		{src:"images/hexanImg.png?1612766614144", id:"hexanImg"},
+		{src:"images/hopeImg.png?1612766614144", id:"hopeImg"},
+		{src:"images/linesImg.png?1612766614144", id:"linesImg"},
+		{src:"images/logoTextImg.png?1612766614144", id:"logoTextImg"},
+		{src:"images/medinaImg.png?1612766614144", id:"medinaImg"},
+		{src:"images/menoraImg.png?1612766614144", id:"menoraImg"},
+		{src:"images/openGameBG.png?1612766614144", id:"openGameBG"},
+		{src:"images/pauseGameBG.png?1612766614144", id:"pauseGameBG"},
+		{src:"images/rabinImg.png?1612766614144", id:"rabinImg"},
+		{src:"images/shekelImg.png?1612766614144", id:"shekelImg"},
+		{src:"images/starsImg.png?1612766614144", id:"starsImg"},
+		{src:"images/V.png?1612766614144", id:"V"},
+		{src:"images/X.png?1612766614144", id:"X"},
+		{src:"images/ענן07.png?1612766614144", id:"ענן07"},
+		{src:"sounds/error.mp3?1612766614144", id:"error"},
+		{src:"sounds/tada.mp3?1612766614144", id:"tada"},
+		{src:"https://code.jquery.com/jquery-3.4.1.min.js?1612766614144", id:"lib/jquery-3.4.1.min.js"},
+		{src:"components/sdk/anwidget.js?1612766614144", id:"sdk/anwidget.js"},
+		{src:"components/ui/src/combobox.js?1612766614144", id:"an.ComboBox"}
 	],
 	preloads: []
 };
