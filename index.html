@@ -9,68 +9,312 @@
 -->
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="authoring-tool" content="Adobe_Animate_CC">
-<title>game</title>
-<!-- write your code here -->
-<style>
-  #animation_container {
-	position:absolute;
-	margin:auto;
-	left:0;right:0;
-	top:0;bottom:0;
-  }
-</style>
-<script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-<script src="game.js?1612725143228"></script>
-<script>
-var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
-function init() {
-	canvas = document.getElementById("canvas");
-	anim_container = document.getElementById("animation_container");
-	dom_overlay_container = document.getElementById("dom_overlay_container");
-	var comp=AdobeAn.getComposition("B34083FC3E66B34EA46206926A39488B");
-	var lib=comp.getLibrary();
-	var loader = new createjs.LoadQueue(false);
-	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
-	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
-	var lib=comp.getLibrary();
-	loader.loadManifest(lib.properties.manifest);
-}
-function handleFileLoad(evt, comp) {
-	var images=comp.getImages();	
-	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
-}
-function handleComplete(evt,comp) {
-	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
-	var lib=comp.getLibrary();
-	var ss=comp.getSpriteSheet();
-	var queue = evt.target;
-	var ssMetadata = lib.ssMetadata;
-	for(i=0; i<ssMetadata.length; i++) {
-		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
-	}
-	exportRoot = new lib.game();
-	stage = new lib.Stage(canvas);	
-	//Registers the "tick" event listener.
-	fnStartAnimation = function() {
-		stage.addChild(exportRoot);
-		createjs.Ticker.framerate = lib.properties.fps;
-		createjs.Ticker.addEventListener("tick", stage);
-	}	    
-	//Code to support hidpi screens and responsive scaling.
-	AdobeAn.makeResponsive(true,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
-	AdobeAn.compositionLoaded(lib.properties.id);
-	fnStartAnimation();
-}
-</script>
-<!-- write your code here -->
+    <meta charset="UTF-8">
+    <meta name="authoring-tool" content="Adobe_Animate_CC">
+    <title>ג'ק והאפון</title>
+    <!-- write your code here -->
+    <style>
+        #animation_container {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+        }
+
+        #gameDropdown {
+            font-size: 18px;
+            height: 30px !important;
+            width: 170px !important;
+            border-radius: 20px;
+            background: #E3F4F9;
+            direction: rtl;
+            left: -75px;
+            top: -4px;
+            padding-right: 5px;
+        }
+
+        body {
+            background-color: #E3F4F9;
+        }
+
+        header {
+            font-family: 'Calibri', sans-serif;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            direction: rtl;
+            padding: 10px 30px;
+            border-bottom: 1px solid #000;
+            position: sticky;
+            top: 0;
+            z-index: 9;
+            background-color: #fff;
+        }
+
+        header .logo img {
+            width: 100px;
+        }
+
+        header .links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal {
+            width: 700px;
+            height: 495px;
+            background-color: #fff;
+            border-radius: 8px;
+            border: 4px solid #E3F4F9;
+            font-size: 14px;
+            direction: rtl;
+            display: none;
+            position: absolute;
+            z-index: 9;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            font-family: 'Calibri', sans-serif;
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal-header {
+            padding: 10px;
+            display: flex;
+            font-size: 16px;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #000;
+        }
+
+        .modal-body {
+            padding: 10px;
+        }
+
+        .modal-body .logo img {
+            width: 220px;
+        }
+
+        .information .modal-body {
+            background-image: url('images/afuna.png');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+
+        .information .text-container {
+            font-size: 16px;
+        }
+
+        .information .text-container .info-users {
+            margin-bottom: 1em;
+        }
+
+        .information .text-container p {
+            margin: 0;
+            margin-bottom: .5em;
+        }
+
+        .information .credits {
+            font-size: 12px;
+            margin-top: 0.5em;
+            width: 550px;
+        }
+
+        .close-modal {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            text-decoration: none;
+        }
+    </style>
+    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
+    <script src="game.js?1612743563344"></script>
+    <script>
+        var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+        function init() {
+            canvas = document.getElementById("canvas");
+            anim_container = document.getElementById("animation_container");
+            dom_overlay_container = document.getElementById("dom_overlay_container");
+            var comp = AdobeAn.getComposition("B34083FC3E66B34EA46206926A39488B");
+            var lib = comp.getLibrary();
+            var loader = new createjs.LoadQueue(false);
+            loader.installPlugin(createjs.Sound);
+            loader.addEventListener("fileload", function (evt) {
+                handleFileLoad(evt, comp)
+            });
+            loader.addEventListener("complete", function (evt) {
+                handleComplete(evt, comp)
+            });
+            var lib = comp.getLibrary();
+            loader.loadManifest(lib.properties.manifest);
+        }
+
+        function handleFileLoad(evt, comp) {
+            var images = comp.getImages();
+            if (evt && (evt.item.type == "image")) {
+                images[evt.item.id] = evt.result;
+            }
+        }
+
+        function handleComplete(evt, comp) {
+            //This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+            var lib = comp.getLibrary();
+            var ss = comp.getSpriteSheet();
+            var queue = evt.target;
+            var ssMetadata = lib.ssMetadata;
+            for (i = 0; i < ssMetadata.length; i++) {
+                ss[ssMetadata[i].name] = new createjs.SpriteSheet({
+                    "images": [queue.getResult(ssMetadata[i].name)],
+                    "frames": ssMetadata[i].frames
+                })
+            }
+            exportRoot = new lib.game();
+            stage = new lib.Stage(canvas);
+            //Registers the "tick" event listener.
+            fnStartAnimation = function () {
+                stage.addChild(exportRoot);
+                createjs.Ticker.framerate = lib.properties.fps;
+                createjs.Ticker.addEventListener("tick", stage);
+            }
+            //Code to support hidpi screens and responsive scaling.
+            AdobeAn.makeResponsive(true, 'both', false, 1, [canvas, anim_container, dom_overlay_container]);
+            AdobeAn.compositionLoaded(lib.properties.id);
+            fnStartAnimation();
+        }
+
+        function playSound(id, loop, offset) {
+            return createjs.Sound.play(id, {
+                'interrupt': createjs.Sound.INTERRUPT_EARLY,
+                'loop': loop,
+                'offset': offset
+            });
+        }
+    </script>
+    <!-- write your code here -->
 </head>
 <body onload="init();" style="margin:0px;">
-	<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:720px">
-		<canvas id="canvas" width="1280" height="720" style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
-		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:1280px; height:720px; position: absolute; left: 0px; top: 0px; display: block;">
-		</div>
-	</div>
+
+<header>
+    <div class="logo">
+        <img src="images/logoTextImg.png" alt="">
+    </div>
+    <div class="links">
+        <a href="#" onclick="showVideo()">איך משחקים?</a>
+        <a href="#" onclick="showInfo()">אודות</a>
+    </div>
+</header>
+
+<section class="information modal" id="infoModal">
+    <div class="modal-header">
+        אודות
+        <a href="#" class="close-modal" onclick="closeInfoModal()">X</a>
+    </div>
+    <div class="modal-body">
+        <div class="logo">
+            <img src="images/logoTextImg.png" alt="">
+        </div>
+
+        <div class="text-container">
+            <div class="info-users">
+                המשחק פותח על ידי:<br>
+                תומר קרולה, מאיה גילת, נועה יום טוב, יובל אהרון
+            </div>
+
+            <div>
+                במסגרת פרויקט של הקורסים:<br>
+                סביבות לימוד אינטראקטיביות 1 + תכנות אינטראקטיבי 1
+            </div>
+
+            <div class="hit-logo">
+                <a href="https://www.hit.ac.il/" target="_blank">
+                    <img src="images/hit-logo.png" alt="">
+                </a>
+            </div>
+
+            <p>תשפ"א</p>
+
+            <a href="https://www.hit.ac.il/telem/overview" target="_blank">הפקולטה לטכנולוגיה למידה</a>
+
+            <div class="credits">
+                זכויות יוצרים: petillo, themusicalnomad, עדי כהן צדק, דובר צה"ל, סער יעקוב, משה דהן, Zachi Evenor,
+                Peteravivangel, רויטל סלומון
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="video modal" id="videoModal">
+    <div class="modal-header">
+        איך משחקים?
+        <a href="#" class="close-modal" onclick="closeVideoModal()">X</a>
+    </div>
+    <div class="modal-body">
+
+    </div>
+</section>
+
+<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:720px">
+    <canvas id="canvas" width="1280" height="720"
+            style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+    <div id="dom_overlay_container"
+         style="pointer-events:none; overflow:hidden; width:1280px; height:720px; position: absolute; left: 0px; top: 0px; display: block;">
+    </div>
+</div>
+
+<script>
+    function showInfo() {
+        console.log('odot');
+        let info = document.getElementById("infoModal");
+
+        if (info.classList.contains("show")) {
+            info.classList.remove("show");
+        } else {
+            info.classList.add("show");
+        }
+    }
+
+    function showVideo() {
+        console.log('video');
+        let video = document.getElementById("videoModal");
+
+        if (video.classList.contains("show")) {
+            video.classList.remove("show");
+        } else {
+            video.classList.add("show");
+        }
+    }
+
+    function closeInfoModal() {
+        let info = document.getElementById("infoModal");
+
+        if (info.classList.contains("show")) {
+            info.classList.remove("show");
+        } else {
+            info.classList.add("show");
+        }
+    }
+
+    function closeVideoModal() {
+        let video = document.getElementById("videoModal");
+
+        if (video.classList.contains("show")) {
+            video.classList.remove("show");
+        } else {
+            video.classList.add("show");
+        }
+    }
+</script>
 </body>
 </html>
