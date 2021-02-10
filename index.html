@@ -15,12 +15,8 @@
     <!-- write your code here -->
     <style>
         #animation_container {
-            position: absolute;
+            position: relative;
             margin: auto;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
         }
 
         #gameDropdown {
@@ -35,7 +31,9 @@
             padding-right: 5px;
         }
 
+        html,
         body {
+            height: 100%;
             background-color: #E3F4F9;
         }
 
@@ -46,10 +44,8 @@
             align-items: center;
             justify-content: space-between;
             direction: rtl;
-            padding: 10px 30px;
+            padding: 0 30px;
             border-bottom: 1px solid #000;
-            position: sticky;
-            top: 0;
             z-index: 9;
             background-color: #fff;
         }
@@ -62,6 +58,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
         }
 
         .modal {
@@ -146,7 +149,7 @@
         }
     </style>
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-    <script src="game.js?1612766614291"></script>
+    <script src="game.js?1612954810274"></script>
     <script>
         var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
 
@@ -213,75 +216,76 @@
 </head>
 <body onload="init();" style="margin:0px;">
 
-<header>
-    <div class="logo">
-        <img src="images/logoTextImg.png" alt="">
-    </div>
-    <div class="links">
-        <a href="#" onclick="showVideo()">איך משחקים?</a>
-        <a href="#" onclick="showInfo()">אודות</a>
-    </div>
-</header>
-
-<section class="information modal" id="infoModal">
-    <div class="modal-header">
-        אודות
-        <a href="#" class="close-modal" onclick="closeInfoModal()">X</a>
-    </div>
-    <div class="modal-body">
+<div class="main">
+    <header>
         <div class="logo">
             <img src="images/logoTextImg.png" alt="">
         </div>
+        <div class="links">
+            <a href="#" onclick="showVideo()">איך משחקים?</a>
+            <a href="#" onclick="showInfo()">אודות</a>
+        </div>
+    </header>
 
-        <div class="text-container">
-            <div class="info-users">
-                המשחק פותח על ידי:<br>
-                תומר קרולה, מאיה גילת, נועה יום טוב, יובל אהרון
+    <section class="information modal" id="infoModal">
+        <div class="modal-header">
+            אודות
+            <a href="#" class="close-modal" onclick="closeInfoModal()">X</a>
+        </div>
+        <div class="modal-body">
+            <div class="logo">
+                <img src="images/logoTextImg.png" alt="">
             </div>
 
-            <div>
-                במסגרת פרויקט של הקורסים:<br>
-                סביבות לימוד אינטראקטיביות 1 + תכנות אינטראקטיבי 1
-            </div>
+            <div class="text-container">
+                <div class="info-users">
+                    המשחק פותח על ידי:<br>
+                    תומר קרולה, מאיה גילת, נועה יום טוב, יובל אהרון
+                </div>
 
-            <div class="hit-logo">
-                <a href="https://www.hit.ac.il/" target="_blank">
-                    <img src="images/hit-logo.png" alt="">
-                </a>
-            </div>
+                <div>
+                    במסגרת פרויקט של הקורסים:<br>
+                    סביבות לימוד אינטראקטיביות 1 + תכנות אינטראקטיבי 1
+                </div>
 
-            <p>תשפ"א</p>
+                <div class="hit-logo">
+                    <a href="https://www.hit.ac.il/" target="_blank">
+                        <img src="images/hit-logo.png" alt="">
+                    </a>
+                </div>
 
-            <a href="https://www.hit.ac.il/telem/overview" target="_blank">הפקולטה לטכנולוגיה למידה</a>
+                <p>תשפ"א</p>
 
-            <div class="credits">
-                זכויות יוצרים: petillo, themusicalnomad, עדי כהן צדק, דובר צה"ל, סער יעקוב, משה דהן, Zachi Evenor,
-                Peteravivangel, רויטל סלומון
+                <a href="https://www.hit.ac.il/telem/overview" target="_blank">הפקולטה לטכנולוגיה למידה</a>
+
+                <div class="credits">
+                    זכויות יוצרים: petillo, themusicalnomad, עדי כהן צדק, דובר צה"ל, סער יעקוב, משה דהן, Zachi Evenor,
+                    Peteravivangel, רויטל סלומון
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="video modal" id="videoModal">
-    <div class="modal-header">
-        איך משחקים?
-        <a href="#" class="close-modal" onclick="closeVideoModal()">X</a>
-    </div>
-    <div class="modal-body">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/X-Of8VUGOAM" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-    </div>
-</section>
+    <section class="video modal" id="videoModal">
+        <div class="modal-header">
+            איך משחקים?
+            <a href="#" class="close-modal" onclick="closeVideoModal()">X</a>
+        </div>
+        <div class="modal-body">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/X-Of8VUGOAM" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </div>
+    </section>
 
-<div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:720px">
-    <canvas id="canvas" width="1280" height="720"
-            style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
-    <div id="dom_overlay_container"
-         style="pointer-events:none; overflow:hidden; width:1280px; height:720px; position: absolute; left: 0px; top: 0px; display: block;">
+    <div id="animation_container" style="background-color:rgba(255, 255, 255, 1.00); width:1280px; height:720px">
+        <canvas id="canvas" width="1280" height="720"
+                style="position: absolute; display: block; background-color:rgba(255, 255, 255, 1.00);"></canvas>
+        <div id="dom_overlay_container"
+             style="pointer-events:none; overflow:hidden; width:1280px; height:720px; position: absolute; left: 0px; top: 0px; display: block;">
+        </div>
     </div>
 </div>
-
 <script>
     function showInfo() {
         let info = document.getElementById("infoModal");
